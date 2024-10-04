@@ -1,0 +1,5 @@
+procs:
+  username1:
+    shell: "twitch-recorder-rs username1"
+  username2:
+    shell: "twitch-recorder-rs username2"
