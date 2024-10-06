@@ -380,7 +380,7 @@ async fn generate_contact_sheet(mp4_filepath: &PathBuf) -> Result<PathBuf> {
         ),
         show_timestamp: true,
         vcs_width: 1500,
-        ..Default::default() // Use default values for all other fields
+        ..Default::default()
     };
 
     // Create a DirEntry for the file

@@ -1,7 +1,6 @@
-
 # Twitch Scrapurr
 
-A simple rust tool to record Twitch streams using streamlink. This tool allows you to record the best available quality livestream of a Twitch streamer without the need for API tokens or complex setups.
+A versatile Rust tool to record Twitch streams, download VODs and clips using streamlink. This tool allows you to capture Twitch content in the best available quality without the need for API tokens or complex setups.
 
 ## TODO:
 
@@ -12,10 +11,13 @@ A simple rust tool to record Twitch streams using streamlink. This tool allows y
 ## Features
 
 - Record Twitch streams in real-time
+- Download Twitch VODs and clips
 - Save streams as .ts files (more reliable in case of failures)
 - Option to convert .ts files to .mp4
 - Contact Sheet Generation
 - Easy setup and usage
+- Custom output directory support
+
 
 ## Requirements
 
@@ -46,10 +48,18 @@ The built binary will be in `./target/release/twitch-scrapurr(.exe)`, you can th
 Run the program:
 
 ```bash
-twitch-scrapurr [username]
+twitch-scrapurr -u {USERNAME}          # Record a live stream
+twitch-scrapurr -v {VOD_OR_CLIP_URL}   # Download a VOD or clip
+twitch-scrapurr -o {OUTPUT_DIRECTORY}  # Specify a custom output directory
 ```
+### Command-line Options:
 
-You can provide the username as an argument or run without it to be prompted for input.
+* -u, --username {USERNAME}: Specify the Twitch username to record
+* -v, --video-url {VIDEO_URL}: Provide a Twitch VOD or clip URL to download
+* -o, --output-dir {OUTPUT_DIR}: Set a custom output directory for recordings
+
+
+If you run the program without arguments, you'll be prompted to enter a username.
 
 On first run, you'll be asked to set an output folder for recordings. This will be saved in a `config.toml` for future use.
 
