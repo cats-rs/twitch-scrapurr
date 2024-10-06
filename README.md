@@ -5,9 +5,9 @@ A simple rust tool to record Twitch streams using streamlink. This tool allows y
 
 ## TODO:
 
-- [ ] Switch to [rust-ffmpeg](https://github.com/zmwangx/rust-ffmpeg) for contact sheet generation
-- [ ] CLI arg for passing vod links to save
-- [ ] CLI arg for save lcoation 
+- [ ] Switch to [rust-ffmpeg](https://github.com/zmwangx/rust-ffmpeg) or just ffmpeg for contact sheet generation
+- [x] CLI arg for passing vod links to save
+- [x] CLI arg for save location 
 
 ## Features
 
