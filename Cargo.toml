@@ -1,5 +1,5 @@
 [package]
-name = "twitch-recorder-rs"
+name = "twitch-scrapurr"
 version = "0.1.0"
 edition = "2021"
 

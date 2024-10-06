@@ -1,7 +1,13 @@
 
-# Twitch Stream Recorder
+# Twitch Scrapurr
 
 A simple rust tool to record Twitch streams using streamlink. This tool allows you to record the best available quality livestream of a Twitch streamer without the need for API tokens or complex setups.
+
+## TODO:
+
+- [ ] Switch to [rust-ffmpeg](https://github.com/zmwangx/rust-ffmpeg) for contact sheet generation
+- [ ] CLI arg for passing vod links to save
+- [ ] CLI arg for save lcoation 
 
 ## Features
 
@@ -24,7 +30,7 @@ A simple rust tool to record Twitch streams using streamlink. This tool allows y
 2. Clone the repository
 
 ```bash
-git clone https://github.com/fvckgrimm/twitch-recorder-rs && cd twitch-recorder-rs
+git clone https://github.com/cats-rs/twitch-scrapurr && cd twitch-scrapurr
 ```
 
 3. Build the program:
@@ -33,14 +39,14 @@ git clone https://github.com/fvckgrimm/twitch-recorder-rs && cd twitch-recorder-
 cargo build --release
 ```
 
-The built binary will be in `./target/release/twitch-recorder-rs(.exe)`, you can then move this to a directory in which it will be added to PATH for easier use. 
+The built binary will be in `./target/release/twitch-scrapurr(.exe)`, you can then move this to a directory in which it will be added to PATH for easier use. 
 
 ## Usage
 
 Run the program:
 
 ```bash
-twitch-recorder-rs [username]
+twitch-scrapurr [username]
 ```
 
 You can provide the username as an argument or run without it to be prompted for input.
@@ -59,7 +65,7 @@ Once the mprocs.yaml file is set, simply run `mprocs`.
 
 ## Configuration
 
-Edit `config.ini` to change settings:
+Edit `config.toml` to change settings:
 - `convert_to_mp4`: Set to "True" or "False"
 - `use_ffmpeg_convert`: Set to "True" or "False" (only applies if `convert_to_mp4` is True)
 - `generate_contact_sheet` : "True" or "False"

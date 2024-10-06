@@ -55,7 +55,7 @@ async fn main() -> Result<()> {
 }
 
 fn load_config() -> Result<Settings> {
-    let project_dirs = ProjectDirs::from("", "", "twitch-recorder")
+    let project_dirs = ProjectDirs::from("", "", "twitch-scrapurr")
         .context("Failed to get project directories")?;
     let config_dir = project_dirs.config_dir();
     fs::create_dir_all(config_dir)?;
