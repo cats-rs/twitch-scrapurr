@@ -11,7 +11,7 @@ use std::sync::Arc;
 use tokio::sync::Mutex;
 use tokio::time::{sleep, Duration};
 use url::Url;
-use vcsr::{args, process_file as vcsr_process_file};
+use vcsr::process_file as vcsr_process_file;
 use walkdir::WalkDir;
 
 #[derive(Parser, Debug)]
@@ -362,26 +362,37 @@ async fn cleanup(config: &Settings, state: &Arc<Mutex<RecordingState>>) -> Resul
 }
 
 async fn generate_contact_sheet(mp4_filepath: &PathBuf) -> Result<PathBuf> {
-    let mut args = args::application_args();
-    args.filenames = vec![mp4_filepath.to_str().unwrap().to_string()];
-    args.grid = vcsr::models::Grid { x: 4, y: 6 };
-    args.num_samples = Some(24);
-    args.output_path = Some(
-        mp4_filepath
-            .with_extension("jpg")
-            .to_str()
-            .unwrap()
-            .to_string(),
-    );
-    args.show_timestamp = true;
-    args.vcs_width = 1500;
+    if !mp4_filepath.exists() || mp4_filepath.metadata()?.len() == 0 {
+        return Err(anyhow::anyhow!("File is empty or does not exist"));
+    }
 
+    // Create a new Args instance with only the necessary fields
+    let mut args = vcsr::args::Args {
+        filenames: vec![mp4_filepath.to_str().unwrap().to_string()],
+        grid: vcsr::models::Grid { x: 4, y: 6 },
+        num_samples: Some(24),
+        output_path: Some(
+            mp4_filepath
+                .with_extension("jpg")
+                .to_str()
+                .unwrap()
+                .to_string(),
+        ),
+        show_timestamp: true,
+        vcs_width: 1500,
+        ..Default::default() // Use default values for all other fields
+    };
+
+    // Create a DirEntry for the file
     let dir_entry = WalkDir::new(mp4_filepath)
+        .min_depth(0)
+        .max_depth(0)
         .into_iter()
         .filter_map(|e| e.ok())
-        .find(|e| e.path() == mp4_filepath)
+        .next()
         .context("Failed to create DirEntry")?;
 
+    // Process the file
     let contact_sheet =
         vcsr_process_file(&dir_entry, &mut args).context("Failed to generate contact sheet")?;
 
@@ -390,5 +401,5 @@ async fn generate_contact_sheet(mp4_filepath: &PathBuf) -> Result<PathBuf> {
         contact_sheet.display()
     );
 
-    Ok(contact_sheet)
+    Ok(PathBuf::from(contact_sheet))
 }
